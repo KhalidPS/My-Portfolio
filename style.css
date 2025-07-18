@@ -1,0 +1,667 @@
+
+:root {
+    --primary-color: #6C63FF; /* A vibrant purple */
+    --background-light: #F5F7FA;
+    --card-background: #FFFFFF;
+    --text-dark: #333;
+    --shadow-light: rgba(0, 0, 0, 0.08);
+    --border-radius: 12px;
+}
+
+body {
+    html {
+    scroll-behavior: smooth;
+}
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevent horizontal scroll from initial card positions */
+}
+
+header {
+    /* width: 100%; */
+    padding: 20px 5%;
+    background-color: var(--card-background);
+    box-shadow: 0 2px 10px var(--shadow-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+header nav {
+        display: flex; 
+    gap: 25px; 
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--primary-color);
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px; /* Increased gap for floating effect */
+    padding: 80px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: start; /* Align items to the top of their grid areas */
+}
+
+.project-card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px var(--shadow-light);
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+    position: relative;
+
+    /* Initial state for main card animation */
+    opacity: 0;
+    transform: translateY(50px) scale(0.95) rotateY(15deg); /* Slight initial rotation */
+}
+
+/* Animation for the main card itself */
+.project-card.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateY(0deg);
+    transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), /* Bounce effect */
+                transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.project-card:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.project-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid #eee;
+}
+
+.card-content {
+    padding: 25px;
+    flex-grow: 1;
+}
+
+.card-content h3 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    /* Initial state for title */
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.card-content p {
+    font-size: 0.95em;
+    color: #666;
+    margin-bottom: 20px;
+    /* Initial state for description */
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.view-project-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    /* Initial state for button */
+    opacity: 0;
+    transform: translateY(15px);
+    transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.4s ease-out;
+}
+
+.view-project-btn:hover {
+    background-color: #534CAF;
+    transform: translateY(-2px);
+}
+
+/* --- Animation for Content Inside Card --- */
+/* When the 'content-visible' class is added to the project-card */
+.project-card.content-visible h3 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.1s; /* Appears shortly after the card */
+}
+
+.project-card.content-visible p {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.2s; /* Appears after the title */
+}
+
+.project-card.content-visible .view-project-btn {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s; /* Appears after the description */
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+        padding: 40px 5%;
+    }
+    header {
+        flex-direction: column;
+        padding: 15px 5%;
+    }
+    nav {
+        margin-top: 15px;
+        gap: 15px;
+    }
+    nav a {
+        margin: 0 10px;
+    }
+}
+
+
+
+/* --- About Section Styles --- */
+.about-section {
+    padding: 80px 5%;
+    max-width: 900px; /* Make it slightly narrower for better readability */
+    margin: 80px auto; /* Add vertical margin for spacing */
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px var(--shadow-light);
+    text-align: center; /* Center the text content */
+    opacity: 0; /* Initial state for animation */
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.about-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.about-section h2 {
+    font-size: 2.8em;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    position: relative; /* For underline effect */
+    display: inline-block; /* To make underline fit text */
+}
+
+.about-section h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -10px;
+    width: 60px;
+    height: 4px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+}
+
+.about-section p {
+    font-size: 1.1em;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+.about-section p strong {
+    color: var(--primary-color);
+}
+
+/* --- Footer Styles --- */
+.footer {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 40px 5%;
+    text-align: center;
+    margin-top: 100px; /* Space from the last section */
+}
+
+.footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.social-links {
+    margin-bottom: 25px;
+}
+
+.social-links a {
+    color: white;
+    font-size: 1.8em; /* Size of the icons */
+    margin: 0 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-block; /* Allows transform to work properly */
+}
+
+.social-links a:hover {
+    color: rgba(255, 255, 255, 0.8); /* Slightly transparent white on hover */
+    transform: translateY(-5px) scale(1.1); /* Subtle lift and enlarge */
+}
+
+.email-text {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+}
+
+.email-text a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.email-text a:hover {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: underline;
+}
+
+.copyright {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Responsive Adjustments for About Section and Footer */
+@media (max-width: 768px) {
+    .about-section {
+        padding: 60px 5%;
+        margin: 50px auto;
+    }
+    .about-section h2 {
+        font-size: 2.2em;
+    }
+    .about-section p {
+        font-size: 1em;
+    }
+    .footer {
+        padding: 30px 5%;
+    }
+    .social-links a {
+        font-size: 1.5em;
+        margin: 0 10px;
+    }
+}
+
+
+
+/* --- Project Detail Overlay Styles (for Shared Element Transition) --- */
+#project-detail-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); /* Dark semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000; /* Above everything else */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    overflow-y: auto; /* Allow scrolling for long content */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+#project-detail-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.detail-content-wrapper {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 900px; /* Max width for detail content */
+    min-height: 50vh; /* Minimum height for overlay content */
+    max-height: 90vh; /* Max height before scrolling */
+    overflow-y: auto; /* Allow scrolling inside the detail content */
+    padding: 30px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transform: scale(0.9); /* Start slightly smaller */
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), /* Springy effect */
+                opacity 0.5s ease;
+}
+
+#project-detail-overlay.active .detail-content-wrapper {
+    transform: scale(1);
+    opacity: 1;
+    transition-delay: 0.2s; /* Delay content wrapper animation slightly */
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2em;
+    color: var(--text-dark);
+    cursor: pointer;
+    z-index: 10; /* Ensure it's above content */
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: var(--primary-color);
+}
+
+/* --- Hero Image Transition Styles --- */
+/* The cloned image that flies */
+.flying-hero-image {
+    position: fixed; /* Crucial for absolute positioning and animation */
+    z-index: 2001; /* Above the overlay and everything else */
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Smooth, springy flight */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Placeholder for where the flying image will land */
+.hero-image-placeholder {
+    width: 100%;
+    height: 300px; /* Desired height for the main image in the detail view */
+    background-color: #f0f0f0; /* Placeholder color */
+    border-radius: var(--border-radius);
+    margin-bottom: 30px;
+    overflow: hidden; /* Hide anything outside */
+    position: relative;
+    opacity: 0; /* Initially hidden, will fade in when hero image arrives */
+    transition: opacity 0.3s ease;
+}
+
+.hero-image-placeholder img { /* This targets the actual image inside the placeholder */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* It's already here! */
+    border-radius: inherit; /* Inherit border-radius from parent */
+}
+
+#project-detail-overlay.active .hero-image-placeholder {
+    opacity: 1;
+}
+
+
+/* --- Project Detail Content (inside overlay) --- */
+.project-detail-content {
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.5s ease;
+    transition-delay: 0.3s; /* Delay appearance of text/other images */
+}
+
+#project-detail-overlay.active .project-detail-content {
+    opacity: 1;
+}
+
+.project-detail-content h2 {
+    font-size: 2.5em;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.project-detail-content .detail-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.project-detail-content .detail-images img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 15px var(--shadow-light);
+}
+
+.project-detail-content p {
+    font-size: 1.1em;
+    line-height: 1.7;
+    margin-bottom: 25px;
+    color: #555;
+}
+
+.project-detail-content .github-link {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+}
+
+.project-detail-content .github-link:hover {
+    background-color: #534CAF;
+    transform: translateY(-2px);
+}
+
+/* Optional: Subtle effect on other cards when overlay is active */
+body.overlay-active .project-card:not(.is-expanded) { /* is-expanded is not used here */
+    pointer-events: none; /* Disable clicks on background cards */
+}
+
+
+/* Responsive adjustments for detail overlay */
+@media (max-width: 768px) {
+    .detail-content-wrapper {
+        width: 95%;
+        height: 95vh;
+        padding: 20px;
+    }
+    .close-btn {
+        font-size: 1.8em;
+        top: 10px;
+        right: 10px;
+    }
+    .hero-image-placeholder {
+        height: 200px; /* Smaller hero image on mobile */
+    }
+    .project-detail-content h2 {
+        font-size: 2em;
+    }
+    .project-detail-content .detail-images {
+        grid-template-columns: 1fr;
+    }
+    .project-detail-content .detail-images img {
+        height: 120px;
+    }
+    .project-detail-content p {
+        font-size: 1em;
+    }
+}
+
+/* --- Shared Element Title Transition Styles --- */
+
+/* The cloned title that flies */
+.flying-hero-title {
+    position: fixed;
+    z-index: 2002; /* Higher than image, lower than close button */
+    font-weight: 600; /* Match card h3 default */
+    color: var(--text-dark); /* Match card h3 default */
+    white-space: nowrap; /* Prevent text wrapping during animation */
+    overflow: hidden; /* Hide any overflow */
+    transform-origin: top left; /* Important for scaling from origin */
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Smooth, springy flight */
+}
+
+/* Placeholder for where the flying title will land */
+.hero-title-placeholder {
+    font-size: 2.5em; /* Final size for the title in detail view */
+    font-weight: 700; /* Make it bold in detail view */
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 30px;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease;
+}
+
+#project-detail-overlay.active .hero-title-placeholder {
+    opacity: 1;
+    transition-delay: 0.4s; /* Appear slightly after image starts moving */
+}
+
+/* Hide the original card title when a card is clicked */
+body.overlay-active .project-card .card-content h3 {
+    opacity: 0;
+    transition: opacity 0.2s ease; /* Quick fade out */
+}
+
+/* Responsive adjustments for flying title */
+@media (max-width: 768px) {
+    .hero-title-placeholder {
+        font-size: 1.8em; /* Smaller on mobile */
+        margin-bottom: 20px;
+    }
+}
+
+
+
+
+/*.project-card::before {
+content: '';
+position: absolute;
+top: -6px; 
+left: -6px;
+right: -6px;
+bottom: -6px;
+border-radius: 12px;
+z-index: -1;
+opacity: 0.3;
+transition: opacity 0.3s ease, box-shadow 0.3s ease;
+filter: blur(0.5rem);
+}
+
+.project-card:hover::before {
+opacity: 1;
+box-shadow:
+10px 10px 10px 5px rgba(108, 99, 255, 0.8),     
+0 0 0 0 rgba(108, 99, 255, 0.6);
+}
+
+/* --- GLOWING GRADIENT BORDER --- */
+/*@keyframes rotateBorderGradient {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}*/
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: calc(100%); /* 20px extension on each side for blur */
+    height: calc(100%);
+
+    background: conic-gradient(
+        from 0deg,
+        var(--primary-color),
+        #00FFFF,
+        #FF00FF,
+        var(--primary-color)
+    );
+
+    border-radius: 15px; /*the for raduis without hover*/
+    z-index: -1;
+
+    opacity: 0.2;
+    transition: opacity 0.4s ease, filter 0.4s ease;
+
+    filter: blur(0px);
+}
+
+.project-card:hover::before {
+    opacity: 0.5;
+    filter: blur(25px);
+    animation: rotateBorderGradient 6s linear infinite;
+}
+
+/* --- MOBILE APP SCREENSHOT STYLES (Additional Images) --- */
+.project-detail-content .mobile-app-screenshot {
+    height: 400px; /* Base height for screenshots */
+    max-width: 185px; /* Calculated from Pixel 7 Pro aspect ratio (1440/3120 * 400) */
+    aspect-ratio: 1440 / 3120; /* Pixel 7 Pro aspect ratio (width / height) */
+    object-fit: cover; /* Ensures image covers the area, cropping if necessary */
+    display: block; /* Ensure it behaves as a block element */
+    border-radius: 25px; /* Rounded corners for a phone-like screen */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Deeper shadow for screen depth */
+    border: 3px solid rgba(255, 255, 255, 0.2); /* Subtle white border for screen effect */
+}
+
+.project-detail-content .mobile-screenshots-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 25px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    max-height: 70vh; /* Limit the height to enable scrolling if many images */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 10px; /* Padding around the scrollable content */
+    background-color: rgba(0, 0, 0, 0.03); /* Subtle background for the scrollable area */
+    border-radius: 15px; /* Rounded corners for the container */
+
+    /* Custom scrollbar styling (for WebKit browsers like Chrome/Safari) */
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: var(--primary-color) #f1f1f1; /* For Firefox */
+}
+
+.project-detail-content .mobile-screenshots-container::-webkit-scrollbar {
+    width: 10px;
+}
+.project-detail-content .mobile-screenshots-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+.project-detail-content .mobile-screenshots-container::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+

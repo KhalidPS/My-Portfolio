@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 "./images/chat_app/chat6.png",
                 "./images/chat_app/chat4.jpg",
                 "./images/chat_app/chat5.jpg",
-                "./images/chat_app/chat.gif",
+                "./images/chat_app/Chat.gif",
 
             ],
             githubLink: "https://github.com/KhalidPS/ChatApp"
